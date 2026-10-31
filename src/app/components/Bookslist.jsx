@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+export const instant = false;
 
 const bookDataList = async () => {
   const res = await fetch("http://localhost:5000/books");
@@ -9,8 +10,6 @@ const bookDataList = async () => {
 
 const Bookslist = async () => {
   const booksList = await bookDataList();
-
-  console.log(booksList);
 
   return (
     <section className="w-full bg-slate-50 py-20 px-5 sm:px-8">
@@ -39,21 +38,18 @@ const Bookslist = async () => {
                 className="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 {/* Book Image */}
-                <div className="relative w-full h-[320px] bg-slate-100 flex items-center justify-center p-6 overflow-hidden">
+                <div className="relative w-full h-[320px] bg-slate-100 flex items-center justify-center  overflow-hidden">
                   {typeof books.image === "string" &&
-                  books.image.startsWith("https://") ? (
+                  books.image.startsWith("http") ? (
                     <Image
                       src={books.image}
                       width={300}
-                      height={100}
+                      height={400}
                       alt={books.title || "Book cover"}
-                      className="w-full h-full object-contain transition-transform duration-500"
+                      className="w-full  object-contain"
                     />
                   ) : (
-                    <div className="flex flex-col items-center gap-3 text-slate-400">
-                      <span className="text-5xl">📚</span>
-                      <p className="text-sm font-medium">No image available</p>
-                    </div>
+                    <p>No image available</p>
                   )}
                 </div>
 
@@ -68,7 +64,7 @@ const Bookslist = async () => {
                   </h3>
                   <p>{books.author}</p>
                   <div className="flex items-center justify-between mt-5 pt-4 border-t border-slate-100">
-                    <Link href={`./books/${books._id}`}> View Details</Link>
+                    <Link href={`/addbooks/${books._id}`}> View Details</Link>
                   </div>
                 </div>
               </div>

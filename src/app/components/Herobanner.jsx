@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
@@ -7,6 +8,16 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
+
+export function Timed() {
+  useEffect(() => {
+    const start = performance.now();
+    doWork();
+    const elapsedMs = performance.now() - start;
+    console.log(`doWork took ${elapsedMs}ms`);
+  }, []);
+  return null;
+}
 
 const Herobanner = () => {
   return (

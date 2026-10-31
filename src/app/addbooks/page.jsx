@@ -4,7 +4,7 @@ import { FaCloudUploadAlt, FaCheckCircle, FaBookOpen } from "react-icons/fa";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
-export default function AddBookForm() {
+const AddBookForm = () => {
   const [formData, setFormData] = useState({
     title: "",
     author: "",
@@ -380,4 +380,6 @@ export default function AddBookForm() {
       </div>
     </div>
   );
-}
+};
+
+export default AddBookForm;
