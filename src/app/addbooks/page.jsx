@@ -1,7 +1,8 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import { CheckCircle, Upload, BookOpen } from "lucide-react";
+import { FaCloudUploadAlt, FaCheckCircle, FaBookOpen } from "react-icons/fa";
+import toast from "react-hot-toast";
+import Image from "next/image";
 
 export default function AddBookForm() {
   const [formData, setFormData] = useState({
@@ -48,12 +49,12 @@ export default function AddBookForm() {
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      setError("Please select a valid image file.");
+      toast.error("Please select a valid image file.");
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      setError("Image size must be less than 5MB.");
+      toast.error("Image size must be less than 5MB.");
       return;
     }
 
@@ -72,7 +73,6 @@ export default function AddBookForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation
     if (!formData.title.trim() || !formData.author.trim()) {
       setError("Please fill in all required fields.");
       return;
@@ -80,6 +80,11 @@ export default function AddBookForm() {
 
     if (Number(formData.totalCopies) < 1) {
       setError("Total copies must be at least 1.");
+      return;
+    }
+
+    if (!formData.image) {
+      toast.error("Please select a book cover image.");
       return;
     }
 
@@ -94,28 +99,39 @@ export default function AddBookForm() {
       bookData.append("userName", formData.userName);
       bookData.append("userEmail", formData.userEmail);
 
-      if (formData.image) {
-        bookData.append("image", formData.image);
-      }
+      // Attach image
+      bookData.append("image", formData.image);
 
       const res = await fetch("http://localhost:5000/booksList", {
         method: "POST",
         body: bookData,
       });
 
-      if (!res.ok) {
-        throw new Error("Failed to add book");
-      }
-
       const result = await res.json();
 
-      console.log("Book added:", result);
+      if (!res.ok) {
+        throw new Error(result.message || "Failed to add book");
+      }
 
+      toast.success("Book added successfully!");
+
+      setFormData((prev) => ({
+        ...prev,
+        title: "",
+        author: "",
+        category: "Fiction",
+        totalCopies: "4",
+        image: null,
+        imageName: "No file chosen",
+        description: "",
+      }));
+
+      setPreviewUrl(null);
       setSubmitted(true);
       setError("");
     } catch (error) {
       console.error(error);
-      setError(error.message);
+      toast.error(error.message || "Failed to add book!");
     }
   };
 
@@ -141,7 +157,7 @@ export default function AddBookForm() {
         {/* Success Message */}
         {submitted && (
           <div className="mb-6 p-4 bg-[#88ba92]/15 border border-[#88ba92]/40 rounded-xl flex items-center gap-3 text-[#548a61] text-sm">
-            <CheckCircle className="w-5 h-5 shrink-0" />
+            <FaCheckCircle className="w-5 h-5 shrink-0" />
             <span className="font-medium">Book added successfully!</span>
           </div>
         )}
@@ -255,7 +271,7 @@ export default function AddBookForm() {
 
             <div className="relative flex items-center bg-gray-50 border border-gray-300 rounded-xl overflow-hidden group hover:border-[#88ba92] transition-all shadow-sm">
               <label className="px-5 py-3 bg-gray-100 text-xs font-medium text-gray-700 cursor-pointer border-r border-gray-300 hover:bg-gray-200 flex items-center gap-2 transition-colors">
-                <Upload className="w-3.5 h-3.5 text-[#639b70]" />
+                <FaCloudUploadAlt className="w-3.5 h-3.5 text-[#639b70]" />
                 Choose File
                 <input
                   type="file"
@@ -272,7 +288,9 @@ export default function AddBookForm() {
 
             {previewUrl && (
               <div className="mt-3 flex items-center gap-3 p-2 bg-gray-50 border border-gray-200 rounded-xl w-fit">
-                <img
+                <Image
+                  width={80}
+                  height={80}
                   src={previewUrl}
                   alt="Book cover preview"
                   className="w-12 h-16 object-cover rounded-lg shadow"
@@ -354,7 +372,7 @@ export default function AddBookForm() {
               type="submit"
               className="w-full bg-gradient-to-r from-[#88ba92] to-[#78a882] hover:from-[#7dae86] hover:to-[#6d9d77] text-white font-bold py-3.5 px-6 rounded-xl text-sm tracking-wide transition-all shadow-lg hover:shadow-[#88ba92]/20 active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2"
             >
-              <BookOpen className="w-4 h-4" />
+              <FaBookOpen className="w-4 h-4" />
               Add Book to Library
             </button>
           </div>
