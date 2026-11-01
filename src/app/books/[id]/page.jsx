@@ -2,8 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { BsAlt } from "react-icons/bs";
+
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+
 const BooksDetails = async ({ params }) => {
   const { id } = await params;
+
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect(`/signin?callbackURL=${encodeURIComponent(`/books/${id}`)}`);
+  }
+
   const res = await fetch(`http://localhost:5000/books/${id}`);
 
   if (!res.ok) {

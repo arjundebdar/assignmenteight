@@ -65,10 +65,9 @@ const Bookslist = async () => {
                   <p>{books.author}</p>
                   <div className="flex items-center justify-around mt-5 pt-4 border-t border-slate-100">
                     <Link
-                      href={`/addbooks/${books._id}`}
-                      className="bg-blue-600 py-3 px-5 text-white rounded-2xl"
+                      href={`/books/${books._id}`}
+                      className="bg-blue-600 hover:bg-blue-700 py-3 px-5 text-white rounded-2xl transition duration-300"
                     >
-                      {" "}
                       View Details
                     </Link>
                   </div>

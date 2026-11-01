@@ -66,7 +66,7 @@ const SignupPage = () => {
       }
 
       // Registration Successful
-      router.push("/login");
+      router.push("./signin");
     } catch (err) {
       setError(err.message || "Registration failed. Please try again.");
     } finally {
@@ -218,10 +218,10 @@ const SignupPage = () => {
         <p className="text-center text-sm text-slate-500 mt-7">
           Already have an account?{" "}
           <Link
-            href="/login"
+            href="./signin"
             className="text-blue-600 font-semibold hover:underline"
           >
-            Login
+            Sign In
           </Link>
         </p>
       </div>
