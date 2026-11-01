@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-
 const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/80 backdrop-blur-md">
@@ -32,7 +31,7 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              href="/books"
+              href="./all-books"
               className="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors"
             >
               All Books

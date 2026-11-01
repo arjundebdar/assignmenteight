@@ -63,12 +63,26 @@ const Bookslist = async () => {
                     {books.title}
                   </h3>
                   <p>{books.author}</p>
-                  <div className="flex items-center justify-between mt-5 pt-4 border-t border-slate-100">
-                    <Link href={`/addbooks/${books._id}`}> View Details</Link>
+                  <div className="flex items-center justify-around mt-5 pt-4 border-t border-slate-100">
+                    <Link
+                      href={`/addbooks/${books._id}`}
+                      className="bg-blue-600 py-3 px-5 text-white rounded-2xl"
+                    >
+                      {" "}
+                      View Details
+                    </Link>
                   </div>
                 </div>
               </div>
             ))}
+        </div>
+        <div className="flex justify-center items-center mt-10">
+          <Link
+            href={"./all-books"}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+          >
+            See All Books
+          </Link>
         </div>
       </div>
     </section>
