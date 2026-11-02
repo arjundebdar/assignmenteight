@@ -6,6 +6,7 @@ import { BsAlt } from "react-icons/bs";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import BorrowButton from "./BorrowButton";
 
 const BooksDetails = async ({ params }) => {
   const { id } = await params;
@@ -103,13 +104,10 @@ const BooksDetails = async ({ params }) => {
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 my-6 items-stretch sm:items-center">
-                  <Link
-                    href={"/"}
-                    className="flex justify-center items-center gap-2 bg-blue-600 hover:bg-blue-700 active:scale-95 transition-all duration-300 py-3 px-6 text-white font-semibold rounded-xl shadow-md hover:shadow-lg"
-                  >
-                    <BsAlt className="text-2xl text-white" />
-                    Borrow This Book
-                  </Link>
+                  <BorrowButton
+                    bookId={book._id.toString()}
+                    availableCopies={Number(book.totalCopies)}
+                  />
 
                   <Link
                     href={"/"}
