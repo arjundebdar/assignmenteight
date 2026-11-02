@@ -9,7 +9,7 @@ const db = client.db();
 export const auth = betterAuth({
   trustedOrigins: [
     "http://localhost:3000",
-    "https://assignmenteight-git-main-arjundebdar-3076.vercel.app",
+    "https://assignmenteight-1opc384rx-arjundebdar-3076.vercel.app",
   ],
   database: mongodbAdapter(db, {
     client,
