@@ -7,15 +7,12 @@ const client = new MongoClient(process.env.BETTER_AUTH_DB_URL);
 const db = client.db();
 
 export const auth = betterAuth({
-  baseURL: "https://assignmenteight-1opc384rx-arjundebdar-3076.vercel.app",
+  baseURL: process.env.BETTER_AUTH_URL,
 
   trustedOrigins: [
     "http://localhost:3000",
     "https://assignmenteight-1opc384rx-arjundebdar-3076.vercel.app",
   ],
-  database: mongodbAdapter(db, {
-    client,
-  }),
 
   emailAndPassword: {
     enabled: true,
