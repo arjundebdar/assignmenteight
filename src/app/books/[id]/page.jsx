@@ -19,7 +19,7 @@ const BooksDetails = async ({ params }) => {
     redirect(`/signin?callbackURL=${encodeURIComponent(`/books/${id}`)}`);
   }
 
-  const res = await fetch(`http://localhost:5000/books/${id}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/books/${id}`);
 
   if (!res.ok) {
     return <h2>Book not found!</h2>;

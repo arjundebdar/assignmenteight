@@ -68,7 +68,7 @@ const MyBooksTable = ({ initialBooks }) => {
       }
 
       const res = await fetch(
-        `http://localhost:5000/books/${selectedBook._id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/books/${selectedBook._id}`,
         {
           method: "PUT",
           body: data,
@@ -117,9 +117,12 @@ const MyBooksTable = ({ initialBooks }) => {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/books/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/books/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
 
       const result = await res.json();
 

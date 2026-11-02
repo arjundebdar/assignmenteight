@@ -83,7 +83,16 @@ const Navbar = () => {
           {/* Auth Actions */}
           <div className="flex items-center gap-4">
             {isPending ? (
-              <div className="h-9 w-24 bg-gray-100 rounded-lg animate-pulse"></div>
+              <div className="flex items-center gap-3 animate-pulse">
+                {/* User Profile Skeleton */}
+                <div className="hidden sm:flex flex-col items-end gap-2">
+                  <div className="h-4 w-24 bg-gray-200 rounded-md"></div>
+                  <div className="h-3 w-36 bg-gray-100 rounded-md"></div>
+                </div>
+
+                {/* Button Skeleton */}
+                <div className="h-9 w-24 bg-gray-200 rounded-lg"></div>
+              </div>
             ) : session?.user ? (
               <>
                 {/* User Profile */}

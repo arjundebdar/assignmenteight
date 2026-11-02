@@ -27,7 +27,7 @@ const MyBorrowedBooks = () => {
     const fetchBorrowedBooks = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/my-borrows/${encodeURIComponent(
+          `${process.env.NEXT_PUBLIC_API_URL}/my-borrows/${encodeURIComponent(
             session.user.email,
           )}`,
           {
@@ -62,9 +62,12 @@ const MyBorrowedBooks = () => {
     setLoadingId(id);
 
     try {
-      const res = await fetch(`http://localhost:5000/borrow/${id}/return`, {
-        method: "PATCH",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/borrow/${id}/return`,
+        {
+          method: "PATCH",
+        },
+      );
 
       const result = await res.json();
 
