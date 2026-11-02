@@ -13,7 +13,9 @@ export const auth = betterAuth({
     "http://localhost:3000",
     "https://assignmenteight-1opc384rx-arjundebdar-3076.vercel.app",
   ],
-
+  database: mongodbAdapter(db, {
+    client,
+  }),
   emailAndPassword: {
     enabled: true,
     revokeSessionsOnPasswordReset: true,
