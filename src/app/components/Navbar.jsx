@@ -52,6 +52,32 @@ const Navbar = () => {
             >
               All Books
             </Link>
+
+            {/* Private Navigation Links */}
+            {!isPending && session?.user && (
+              <>
+                <Link
+                  href="/addbooks"
+                  className="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors"
+                >
+                  Add Book
+                </Link>
+
+                <Link
+                  href="/my-books"
+                  className="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors"
+                >
+                  My Books
+                </Link>
+
+                <Link
+                  href="/my-borrowed-books"
+                  className="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors"
+                >
+                  My Borrowed Books
+                </Link>
+              </>
+            )}
           </nav>
 
           {/* Auth Actions */}
@@ -83,7 +109,7 @@ const Navbar = () => {
               <>
                 {/* Sign In */}
                 <Link
-                  href="./signin"
+                  href="/signin"
                   className="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors px-3 py-2 rounded-lg hover:bg-gray-50"
                 >
                   Sign In

@@ -1,4 +1,7 @@
 import React from "react";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import MyBooksTable from "./MyBooksTable";
 
 const booksData = async () => {
@@ -14,6 +17,16 @@ const booksData = async () => {
 };
 
 const MyBooks = async () => {
+  // Check User Session
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  // Private Route
+  if (!session?.user) {
+    redirect("/signin?callbackURL=/my-books");
+  }
+
   const datas = await booksData();
 
   return (

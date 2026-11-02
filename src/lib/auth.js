@@ -13,6 +13,15 @@ export const auth = betterAuth({
 
   emailAndPassword: {
     enabled: true,
+    revokeSessionsOnPasswordReset: true,
+
+    sendResetPassword: async ({ user, url }) => {
+      await sendEmail({
+        to: user.email,
+        subject: "BookNook Password Reset",
+        text: `Reset your password using this link: ${url}`,
+      });
+    },
   },
 
   socialProviders: {

@@ -4,9 +4,9 @@ import React, { Suspense, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 const SignInForm = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   // Get callback URL
@@ -41,10 +41,10 @@ const SignInForm = () => {
       });
 
       if (error) {
-        setError(error.message || "Invalid email or password.");
+        toast("Invalid email or password.");
         return;
       }
-
+      toast.success("Login successful!");
       // Redirect to the requested page after successful login
       const redirectURL =
         callbackURL?.startsWith("/") && !callbackURL.startsWith("//")
@@ -150,7 +150,7 @@ const SignInForm = () => {
 // Suspense Wrapper
 const SignInPage = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense>
       <SignInForm />
     </Suspense>
   );

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn, signUp } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 const SignupPage = () => {
   const router = useRouter();
@@ -36,17 +37,17 @@ const SignupPage = () => {
 
     // Password Validation
     if (password.length < 6) {
-      setError("Password must be at least 6 characters long.");
+      toast("Password must be at least 6 characters long.");
       return;
     }
 
     if (!/[A-Z]/.test(password)) {
-      setError("Password must contain at least one uppercase letter.");
+      toast("Password must contain at least one uppercase letter.");
       return;
     }
 
     if (!/[a-z]/.test(password)) {
-      setError("Password must contain at least one lowercase letter.");
+      toast("Password must contain at least one lowercase letter.");
       return;
     }
 
@@ -61,14 +62,14 @@ const SignupPage = () => {
       });
 
       if (error) {
-        setError(error.message);
+        toast(error.message);
         return;
       }
 
       // Registration Successful
       router.push("./signin");
     } catch (err) {
-      setError(err.message || "Registration failed. Please try again.");
+      toast(err.message || "Registration failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -85,7 +86,7 @@ const SignupPage = () => {
         callbackURL: "/",
       });
     } catch (err) {
-      setError(err.message || "Google login failed");
+      toast("Google login failed");
       setGoogleLoading(false);
     }
   };
