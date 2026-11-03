@@ -49,7 +49,7 @@ const Herobanner = () => {
                 classics to modern bestsellers.
               </p>
               <Link
-                href="/books"
+                href="/all-books"
                 className="inline-block px-6 py-3 bg-amber-400 text-slate-900 font-semibold rounded-lg"
               >
                 Browse Books
@@ -75,7 +75,7 @@ const Herobanner = () => {
                 self-improvement titles.
               </p>
               <Link
-                href="/books"
+                href="/all-books"
                 className="inline-block px-6 py-3 bg-amber-400 text-slate-900 font-semibold rounded-lg"
               >
                 Browse Books
@@ -101,7 +101,7 @@ const Herobanner = () => {
                 for avid collectors.
               </p>
               <Link
-                href="/books"
+                href="/all-books"
                 className="inline-block px-6 py-3 bg-amber-400 text-slate-900 font-semibold rounded-lg"
               >
                 Browse Books

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { MdOutlineEdit, MdDelete } from "react-icons/md";
+import { useSession } from "@/lib/auth-client";
 
 const MyBooksTable = ({ initialBooks }) => {
   const router = useRouter();
@@ -12,6 +13,12 @@ const MyBooksTable = ({ initialBooks }) => {
   const [books, setBooks] = useState(initialBooks);
   const [selectedBook, setSelectedBook] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const { data: session } = useSession();
+
+  const myBooks = books.filter(
+    (book) => book.userEmail === session?.user?.email,
+  );
 
   const [formData, setFormData] = useState({
     title: "",
@@ -169,7 +176,7 @@ const MyBooksTable = ({ initialBooks }) => {
           </thead>
 
           <tbody className="divide-y divide-slate-100">
-            {books.length === 0 ? (
+            {myBooks.length === 0 ? (
               <tr>
                 <td colSpan="4" className="py-16 px-5 text-center">
                   <div className="flex flex-col items-center">
@@ -200,7 +207,7 @@ const MyBooksTable = ({ initialBooks }) => {
                 </td>
               </tr>
             ) : (
-              books.map((book) => (
+              myBooks.map((book) => (
                 <tr
                   key={book._id}
                   className="hover:bg-slate-50/80 transition-colors duration-200"
